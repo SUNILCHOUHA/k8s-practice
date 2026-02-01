@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: db-svc 
+  namespace: 3-tier
+
+spec:
+  type: ClusterIP
+  selector:
+    app: db-app
+  ports:
+  - port: 5432

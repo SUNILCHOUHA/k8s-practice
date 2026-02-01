@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: notes-deploy
+  namespace: notes
+
+spec: 
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notes 
+    
+  template:
+    metadata:
+      labels:
+        app: notes
+      
+    spec:
+      containers:
+        - name: notes
+          image: sunilchouha/notes-app:1.2
+          env: 
+          - name: DATA_DIR
+            valueFrom:
+              configMapKeyRef:
+                name: notes
+                key: DATA_DIR
+                
+          ports:
+          - containerPort: 5000
+
+          volumeMounts:
+          - name: persistent-storage
+            mountPath: /data 
+
+          - name: cache-storage
+            mountPath: /cache
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim: 
+          claimName: notes-pvc 
+        
+      - name: cache-storage
+        emptyDir: {}
+        

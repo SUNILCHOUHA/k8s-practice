@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+
+metadata: 
+  name: allow-db
+  namespace: netlab
+
+spec: 
+  podSelector:
+    matchLabels:
+      run: db
+  policyTypes:
+   - Ingress
+  Ingress:
+  - from:
+    - podSelector:
+      matchLabels:
+        run: db 
+        

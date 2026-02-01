@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: db-deploy
+  namespace: 3-tier
+
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: db-app 
+    
+  template:
+    metadata:
+      labels:
+        app: db-app
+
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15 
+          env:
+            - name: POSTGRES_DB
+              value: notesdb
+            - name: POSTGRES_USER
+              value: notesuser
+            - name: POSTGRES_PASSWORD
+              value: notessecret
+
+          ports:
+          - containerPort: 5432
+
+          volumeMounts:
+            - name: data 
+              mountPath: /var/lib/postgresql/data 
+
+
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: db-pvc
+  # valumeClaimTemplates: 
+  # - metadata:
+  #     name: data
+  #   spec: 
+  #     accessMode: ["ReadWriteOnce"]
+  #     resources:
+  #       requests:
+  #         storage: 1Gi 

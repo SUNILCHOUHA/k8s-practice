@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: sunilchouha/notes-app
+  tag: 1.1
+
+
+containerPort: 5000
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30001
+
+resources: 
+  limits:
+    cpu: "200m"
+    memory: "256Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"

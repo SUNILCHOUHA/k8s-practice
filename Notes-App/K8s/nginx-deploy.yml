@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata: 
+  name: nginx-deploy
+  namespace: 3-tier 
+
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: nginx-app 
+    
+  template: 
+    metadata:
+      labels:
+        app: nginx-app 
+    
+    spec:   
+      containers:
+        - name: nginx
+          image: sunilchouha/frontend-app 
+          ports:
+          - containerPort: 80

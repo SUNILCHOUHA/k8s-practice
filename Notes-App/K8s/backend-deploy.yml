@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: backend-deploy
+  namespace: 3-tier
+
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-app 
+
+  template:
+    metadata:
+      labels:
+        app: backend-app 
+
+    spec:
+      containers:
+        - name: backend
+          image: sunilchouha/backend-app 
+          env:
+          - name: DB_HOST
+            value: postgres
+          - name: DB_NAME
+            value: notesdb
+          - name: DB_USER
+            value: notesuser
+          - name: DB_PASS
+            value: notessecret
+          ports:
+          - containerPort: 5000

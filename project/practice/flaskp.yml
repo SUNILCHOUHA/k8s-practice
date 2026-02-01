@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: notes 
+  namespace: nginx
+  labels: 
+    app: flask-pod
+
+spec:
+  containers:
+    - name: flask-app
+      image: sunilchouha/notes-app:latest
+      ports:
+      - containerPort: 5000
+
+      volumeMounts:
+      - name: storage
+        mountPath: /data/notes.db
+    
+  volumes:
+  - name: storage
+    persistentVolumeClaim:
+      claimName: demo-pvc
