@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: apache-deploy 
+  name: nginx-deploy 
 
 spec:
-  replicas: 4
+  replicas: 2
   selector: 
     matchLabels:
-      app: apache-po 
+      app: nginx-po 
 
 
   template:
     metadata:
       labels:
-        app: apache-po
+        app: nginx-po
     spec:
       containers:
-        - name: demo-apache
-          image: apache 
+        - name: demo-nginx
+          image: nginx 
           ports:
           - containerPort: 80
