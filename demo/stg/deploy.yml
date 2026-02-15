@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: nginx-deploy 
+  name: nginx-stg 
 
 spec:
   replicas: 2
   selector: 
     matchLabels:
-      app: nginx-po 
+      app: nginx-stg
 
 
   template:
     metadata:
       labels:
-        app: nginx-po
+        app: nginx-stg
     spec:
       containers:
-        - name: demo-nginx
+        - name: stg-nginx
           image: nginx 
           ports:
           - containerPort: 80
