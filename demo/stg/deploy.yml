@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
         - name: stg-nginx
-          image: nsunilchouha/notes-app 
+          image: nsunilchouha/nginx
           ports:
           - containerPort: 80
