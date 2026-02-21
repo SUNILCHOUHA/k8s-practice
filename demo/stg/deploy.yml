@@ -2,22 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: nginx-stg 
+  name: demo-app
 
 spec:
-  replicas: 2
+  replicas: 1
   selector: 
     matchLabels:
-      app: nginx-stg
+      app: demo-app
 
 
   template:
     metadata:
       labels:
-        app: nginx-stg
+        app: demo-app
     spec:
       containers:
-        - name: stg-nginx
-          image: nsunilchouha/nginx
+        - name: stg
+          image: nsunilchouha/nginx:v1.0.0
           ports:
           - containerPort: 80
