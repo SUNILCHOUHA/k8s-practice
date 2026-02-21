@@ -1,3 +1,0 @@
-kustomize:
-  images:
-  - sunilchouha/nginx:v1.0.1
