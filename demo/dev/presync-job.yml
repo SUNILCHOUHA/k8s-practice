@@ -1,14 +1,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: db-migration
+  name: presync-sleep
   annotations:
     argocd.argoproj.io/hook: PreSync
 spec:
   template:
     spec:
-      containers:
-      - name: migrate
-        image: alpine
-        command: ["echo", "Running migration..."]
       restartPolicy: Never
+      containers:
+        - name: sleep
+          image: busybox
+          command: ["sh", "-c", "echo 'Waiting 20 seconds...'; sleep 20"]
+  backoffLimit: 0
